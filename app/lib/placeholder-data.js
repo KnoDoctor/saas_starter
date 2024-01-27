@@ -164,6 +164,16 @@ const invoices = [
     date: '2022-06-05',
   },
 ];
+const inquiries = [
+  {
+    id: '25adf084-d5e1-412d-a646-97070b2e01c8',
+    subject: 'Subject Line',
+  },
+  {
+    id: '856b4585-97c7-4590-8030-65d218283a11',
+    subject: 'Subject Two',
+  },
+];
 
 const revenue = [
   { month: 'Jan', revenue: 2000 },
@@ -184,5 +194,6 @@ module.exports = {
   users,
   customers,
   invoices,
+  inquiries,
   revenue,
 };
