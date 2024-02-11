@@ -95,7 +95,7 @@ export async function updateCustomer(
   const { name, email, image_url } = validatedFields.data;
 
   try {
-    const update = await prisma.customers.update({
+    await prisma.customers.update({
       where: {
         id,
       },

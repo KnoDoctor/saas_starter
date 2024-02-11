@@ -1,26 +1,19 @@
 'use client';
 
-import { CustomerField, InvoiceForm, Customer } from '@/app/lib/definitions';
-import {
-  AtSymbolIcon,
-  CheckIcon,
-  ClockIcon,
-  CurrencyDollarIcon,
-  PhotoIcon,
-  UserCircleIcon,
-} from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
-import { updateInvoice } from '@/app/lib/actions';
-import { updateCustomer } from '@/app/dashboard/customers/_actions';
+import { createCustomer } from '@/app/lib/actions/customers';
 import { useFormState } from 'react-dom';
+import {
+  UserCircleIcon,
+  AtSymbolIcon,
+  PhotoIcon,
+} from '@heroicons/react/24/outline';
 
-export default function EditCustomerForm({ customer }: { customer: any }) {
+export default function Form() {
   const initialState = { message: null, errors: {} };
-  const updateCustomerWithId = updateCustomer.bind(null, customer.id);
-  const [state, dispatch] = useFormState(updateCustomerWithId, initialState);
 
-  console.log(customer);
+  const [state, dispatch] = useFormState(createCustomer, initialState);
 
   return (
     <form action={dispatch}>
@@ -39,7 +32,6 @@ export default function EditCustomerForm({ customer }: { customer: any }) {
                 placeholder="Enter customer's full name"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby="amount-error"
-                defaultValue={customer.name}
                 // required
               />
               <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
@@ -54,6 +46,7 @@ export default function EditCustomerForm({ customer }: { customer: any }) {
               ))}
           </div>
         </div>
+
         {/* Customer Email */}
         <div className="mb-4">
           <label htmlFor="email" className="mb-2 block text-sm font-medium">
@@ -68,7 +61,6 @@ export default function EditCustomerForm({ customer }: { customer: any }) {
                 placeholder="Enter customer's email"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby="amount-error"
-                defaultValue={customer.email}
                 // required
               />
               <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -83,7 +75,8 @@ export default function EditCustomerForm({ customer }: { customer: any }) {
               ))}
           </div>
         </div>
-        {/* Customer Email */}
+
+        {/* Customer Image Url */}
         <div className="mb-4">
           <label htmlFor="image_url" className="mb-2 block text-sm font-medium">
             Customer Image Url
@@ -97,7 +90,6 @@ export default function EditCustomerForm({ customer }: { customer: any }) {
                 placeholder="Enter customer's image_url"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby="amount-error"
-                defaultValue={customer.image_url}
                 // required
               />
               <PhotoIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -114,14 +106,15 @@ export default function EditCustomerForm({ customer }: { customer: any }) {
         </div>
       </div>
 
+      {/* Submit*/}
       <div className="mt-6 flex justify-end gap-4">
         <Link
-          href="/dashboard/customers"
+          href="/dashboard/invoices"
           className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
         >
           Cancel
         </Link>
-        <Button type="submit">Save Customer</Button>
+        <Button type="submit">Create Customer</Button>
       </div>
     </form>
   );
